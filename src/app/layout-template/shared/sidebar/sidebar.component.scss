@@ -1,0 +1,16 @@
+.component.sidebar {
+  background-color: blue;
+  box-sizing: border-box;
+  padding: 1rem;
+  align-self: stretch;
+  flex-grow: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 12rem;
+
+  nav {
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,16 @@
+.layout.dashboard {
+  display: flex;
+  flex-direction: column;
+
+  .layout-content {
+    display: flex;
+    flex-grow: 1;
+
+    .page-content {
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      flex-grow: 1;
+    }
+  }
+}
