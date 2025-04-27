@@ -4,6 +4,58 @@
       <h1>Devices</h1>
       <small>A list of devices registered on the system</small>
     </div>
-    <button mat-button>Create device</button>
+    <button mat-button>
+      <mat-icon fontIcon="add" />
+      Create device
+    </button>
   </header>
+  <main>
+    <mat-card appearance="outlined">
+      <mat-card-content>
+        <table
+          *ngIf="!loadingTable; else loadingTemplate"
+          mat-table
+          [dataSource]="dataSource"
+        >
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>No.</th>
+            <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+          </ng-container>
+
+          <!-- Color Column -->
+          <ng-container matColumnDef="color">
+            <th mat-header-cell *matHeaderCellDef>Color</th>
+            <td mat-cell *matCellDef="let element">{{ element.color }}</td>
+          </ng-container>
+
+          <!-- PartNumber Column -->
+          <ng-container matColumnDef="partNumber">
+            <th mat-header-cell *matHeaderCellDef>PartNumber</th>
+            <td mat-cell *matCellDef="let element">{{ element.partNumber }}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <ng-template #loadingTemplate>
+          <mat-spinner />
+        </ng-template>
+
+        <mat-paginator
+          [disabled]="loadingTable"
+          (page)="onSelectPage($event)"
+          [length]="totalItems"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[1, 5, 10, 25, 50]"
+          aria-label="Select page"
+        >
+        </mat-paginator>
+      </mat-card-content>
+    </mat-card>
+  </main>
 </div>

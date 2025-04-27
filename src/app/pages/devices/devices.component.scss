@@ -1,0 +1,14 @@
+.page.devices {
+  > header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 0.3rem;
+
+    .left {
+      h1 {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

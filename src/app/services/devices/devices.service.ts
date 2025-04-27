@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
@@ -13,9 +13,15 @@ export class DevicesService {
 
   constructor(private http: HttpClient) {}
 
-  getList(): Observable<SuccessPaginatedResponse<Device>> {
+  getList(params: {
+    page: number;
+    pageSize: number;
+  }): Observable<SuccessPaginatedResponse<Device>> {
+    const requestParams = new HttpParams({ fromObject: params });
+
     return this.http.get<SuccessPaginatedResponse<Device>>(
-      this.apiBase + 'devices'
+      this.apiBase + 'devices',
+      { params: requestParams }
     );
   }
 }
