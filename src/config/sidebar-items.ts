@@ -1,4 +1,4 @@
-import { ISidebarItem } from '../app/layout-template/shared/sidebar/sidebar-item.interface';
+import { ISidebarItem } from '../app/layouts/dashboard-layout/components/sidebar/sidebar-item.interface';
 
 export const sidebarItems: ISidebarItem[] = [
   {

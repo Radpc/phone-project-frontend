@@ -1,7 +1,8 @@
 <div class="component sidebar">
+  <span>Page accessses</span>
   <nav>
     @for (item of itemsList; track item.url) {
-    <button>{{ item.name }}</button>
+    <a [routerLink]="item.url">{{ item.name }}</a>
     }
   </nav>
 </div>
