@@ -2,3 +2,12 @@
 @import "styles/reset.css";
 @import "styles/global.scss";
 @import "styles/styleguide.scss";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
