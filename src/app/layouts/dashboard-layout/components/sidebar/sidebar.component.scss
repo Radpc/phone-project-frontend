@@ -10,6 +10,7 @@
   padding-block: 1rem;
 
   nav {
+    margin-right: 0.5rem;
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
@@ -25,6 +26,10 @@
       color: white;
       text-align: left;
       cursor: pointer;
+
+      &.active {
+        background-color: red;
+      }
 
       &:hover {
         background-color: #00000050;
