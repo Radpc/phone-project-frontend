@@ -1,7 +1,10 @@
+@use "colors" as colors;
 .component.navbar {
   padding: 1rem;
+  background-color: colors.$topbar-bg;
 
   .title {
     font-weight: 600;
+    color: white;
   }
 }

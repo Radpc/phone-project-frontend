@@ -1,5 +1,7 @@
+@use "colors" as colors;
+$left-padding: 0.5rem;
 .component.sidebar {
-  background-color: purple;
+  background-color: colors.$sidebar-bg;
   box-sizing: border-box;
   align-self: stretch;
   flex-grow: 1;
@@ -9,12 +11,16 @@
   width: 12rem;
   padding-block: 1rem;
 
+  > span {
+    margin-left: $left-padding;
+  }
+
   nav {
     margin-right: 0.5rem;
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
 
     a {
       border: none;
@@ -26,6 +32,8 @@
       color: white;
       text-align: left;
       cursor: pointer;
+      padding-left: $left-padding;
+      text-decoration: none;
 
       &.active {
         background-color: red;
