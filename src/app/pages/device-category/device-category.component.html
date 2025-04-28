@@ -40,7 +40,17 @@
           <!-- Actions Column -->
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Actions</th>
-            <td mat-cell *matCellDef="let element">actions</td>
+            <td mat-cell *matCellDef="let element">
+              <button matTooltip="See details" mat-button>
+                <mat-icon fontIcon="visibility" />
+              </button>
+              <button matTooltip="Edit category" mat-button>
+                <mat-icon fontIcon="edit" />
+              </button>
+              <button matTooltip="Remove category" mat-button>
+                <mat-icon fontIcon="close" />
+              </button>
+            </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

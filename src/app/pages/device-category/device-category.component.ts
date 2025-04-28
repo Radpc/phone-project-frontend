@@ -11,6 +11,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateDeviceCategoryDialogComponent } from './components/dialogs/create-device-category-dialog/create-device-category-dialog.component';
 import { formatISODate } from '../../../utils/date-formatter';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-device-category',
@@ -23,6 +24,7 @@ import { formatISODate } from '../../../utils/date-formatter';
     MatTableModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatTooltipModule,
   ],
   templateUrl: './device-category.component.html',
   styleUrl: './device-category.component.scss',
