@@ -10,6 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateDeviceCategoryDialogComponent } from './components/dialogs/create-device-category-dialog/create-device-category-dialog.component';
+import { formatISODate } from '../../../utils/date-formatter';
 
 @Component({
   selector: 'app-device-category',
@@ -33,12 +34,16 @@ export class DeviceCategoryComponent {
   readonly dialog = inject(MatDialog);
 
   // Table
-  displayedColumns: string[] = ['id', 'name'];
+  displayedColumns: string[] = ['id', 'name', 'createdAt', 'actions'];
   dataSource: DeviceCategory[] = [];
   currentPage = 1;
   pageSize = 10;
   totalItems = 0;
   loadingTable = false;
+
+  formatDate(str: string) {
+    return formatISODate(str);
+  }
 
   onSelectPage(event: PageEvent) {
     this.currentPage = event.pageIndex + 1;
@@ -63,9 +68,8 @@ export class DeviceCategoryComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-      if (result !== undefined) {
-        console.log(result);
+      if (result) {
+        this.getList({ page: this.currentPage, pageSize: this.pageSize });
       }
     });
   }

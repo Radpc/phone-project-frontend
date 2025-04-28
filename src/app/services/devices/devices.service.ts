@@ -2,7 +2,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
-import { SuccessPaginatedResponse } from '../../../utils/api-responses/success-response.interface';
+import {
+  SuccessPaginatedResponse,
+  SuccessResponse,
+} from '../../../utils/api-responses/success-response.interface';
 import { Device } from '../../../interfaces/device.interface';
 
 @Injectable({
@@ -22,6 +25,17 @@ export class DevicesService {
     return this.http.get<SuccessPaginatedResponse<Device>>(
       this.apiBase + 'devices',
       { params: requestParams }
+    );
+  }
+
+  create(data: {
+    color: string;
+    partNumber: number;
+    categoryId: number;
+  }): Observable<SuccessResponse<Device>> {
+    return this.http.post<SuccessResponse<Device>>(
+      this.apiBase + 'devices',
+      data
     );
   }
 }

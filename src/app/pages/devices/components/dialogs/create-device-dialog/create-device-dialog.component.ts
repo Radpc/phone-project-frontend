@@ -18,8 +18,10 @@ import {
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DeviceCategory } from '../../../../../../interfaces/device-category.interface';
-import { ErrorStateMatcher } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DevicesService } from '../../../../../services/devices/devices.service';
 
 export interface ICreateDeviceForm {
   partNumber: string;
@@ -27,8 +29,7 @@ export interface ICreateDeviceForm {
   categoryId: number;
 }
 
-export interface DialogData {
-  form: ICreateDeviceForm;
+export interface CreateDeviceDialogData {
   categoryOptions: DeviceCategory[];
 }
 
@@ -47,13 +48,18 @@ export interface DialogData {
     MatLabel,
     ReactiveFormsModule,
     CommonModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
   ],
   templateUrl: './create-device-dialog.component.html',
   styleUrl: './create-device-dialog.component.scss',
 })
 export class CreateDeviceDialogComponent {
+  deviceService = inject(DevicesService);
+
   readonly dialogRef = inject(MatDialogRef<CreateDeviceDialogComponent>);
-  readonly data = inject<DialogData>(MAT_DIALOG_DATA);
+  readonly data = inject<CreateDeviceDialogData>(MAT_DIALOG_DATA);
+  loading = false;
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -79,10 +85,28 @@ export class CreateDeviceDialogComponent {
     return;
   }
 
-  submit() {
+  async createDevice() {
+    this.loading = true;
+    const formValues = this.formValidator.value;
+    return this.deviceService
+      .create({
+        color: formValues.color!,
+        categoryId: +formValues.category!,
+        partNumber: Number(formValues.partNumber!),
+      })
+      .subscribe({
+        complete: () => {
+          this.loading = false;
+        },
+        next: () => {
+          this.dialogRef.close(true);
+        },
+      });
+  }
+
+  async submit() {
     if (this.formValidator.valid) {
-      console.log(this.formValidator.value);
-      this.dialogRef.close(this.formValidator.value);
+      this.createDevice();
     } else {
       this.formValidator.markAllAsTouched();
     }

@@ -1,4 +1,4 @@
-import { Component, inject, model, signal } from '@angular/core';
+import { Component, inject, model, OnInit, signal } from '@angular/core';
 import { DevicesService } from '../../services/devices/devices.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,7 +9,12 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Device } from '../../../interfaces/device.interface';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
-import { CreateDeviceDialogComponent } from './components/dialogs/create-device-dialog/create-device-dialog.component';
+import {
+  CreateDeviceDialogComponent,
+  CreateDeviceDialogData,
+} from './components/dialogs/create-device-dialog/create-device-dialog.component';
+import { DeviceCategory } from '../../../interfaces/device-category.interface';
+import { DeviceCategoriesService } from '../../services/device-categories/device-categories.service';
 
 @Component({
   selector: 'app-devices',
@@ -26,14 +31,16 @@ import { CreateDeviceDialogComponent } from './components/dialogs/create-device-
   templateUrl: './devices.component.html',
   styleUrl: './devices.component.scss',
 })
-export class DevicesComponent {
+export class DevicesComponent implements OnInit {
   devicesService = inject(DevicesService);
+  deviceCategoryService = inject(DeviceCategoriesService);
 
   // Create device
   readonly dialog = inject(MatDialog);
+  dialogCategoryOptions: DeviceCategory[] = [];
 
   // Table
-  displayedColumns: string[] = ['id', 'color', 'partNumber'];
+  displayedColumns: string[] = ['id', 'color', 'partNumber', 'category'];
   dataSource: Device[] = [];
   currentPage = 1;
   pageSize = 10;
@@ -60,17 +67,24 @@ export class DevicesComponent {
   openDialog(): void {
     const dialogRef = this.dialog.open(CreateDeviceDialogComponent, {
       width: '400px',
+      data: {
+        categoryOptions: this.dialogCategoryOptions,
+      } satisfies CreateDeviceDialogData,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-      if (result !== undefined) {
-        console.log(result);
+      if (result) {
+        this.getList({ page: this.currentPage, pageSize: this.pageSize });
       }
     });
   }
 
-  constructor() {
+  ngOnInit(): void {
     this.getList({ page: this.currentPage, pageSize: this.pageSize });
+    this.deviceCategoryService
+      .getList({ page: 1, pageSize: 50 })
+      .subscribe((res) => {
+        this.dialogCategoryOptions = res.data.items;
+      });
   }
 }

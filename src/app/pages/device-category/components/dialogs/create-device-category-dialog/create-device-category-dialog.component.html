@@ -1,19 +1,33 @@
 <h2 mat-dialog-title>Create category</h2>
 <mat-dialog-content>
-  <p>Please fill the fields below</p>
-  <form (submit)="submit()" [formGroup]="formValidator">
-    <mat-form-field class="field">
-      <mat-label>Category name</mat-label>
-      <input placeholder="Category A" matInput formControlName="name" />
-      <mat-error *ngIf="isInvalid('name')">
-        {{ getFieldError("name") }}
-      </mat-error>
-    </mat-form-field>
-  </form>
+  <div *ngIf="!loading; else loadingTemplate">
+    <p>Please fill the fields below</p>
+    <form (submit)="submit()" [formGroup]="formValidator">
+      <mat-form-field class="field">
+        <mat-label>Category name</mat-label>
+        <input placeholder="Category A" matInput formControlName="name" />
+        <mat-error *ngIf="isInvalid('name')">
+          {{ getFieldError("name") }}
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+
+  <ng-template #loadingTemplate>
+    <mat-spinner />
+  </ng-template>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-flat-button (click)="onNoClick()">Cancel</button>
-  <button mat-flat-button color="primary" (click)="submit()" cdkFocusInitial>
+  <button [disabled]="loading" mat-flat-button (click)="onNoClick()">
+    Cancel
+  </button>
+  <button
+    [disabled]="loading"
+    mat-flat-button
+    color="primary"
+    (click)="submit()"
+    cdkFocusInitial
+  >
     Create
   </button>
 </mat-dialog-actions>

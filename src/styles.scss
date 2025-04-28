@@ -12,3 +12,9 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+// Material styles
+.mdc-data-table__cell,
+.mdc-data-table__header-cell {
+  align-content: center;
+}
