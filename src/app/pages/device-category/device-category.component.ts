@@ -8,6 +8,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateDeviceCategoryDialogComponent } from './components/dialogs/create-device-category-dialog/create-device-category-dialog.component';
 
 @Component({
   selector: 'app-device-category',
@@ -26,6 +28,9 @@ import { MatTableModule } from '@angular/material/table';
 })
 export class DeviceCategoryComponent {
   deviceCategoryService = inject(DeviceCategoriesService);
+
+  // Create device
+  readonly dialog = inject(MatDialog);
 
   // Table
   displayedColumns: string[] = ['id', 'name'];
@@ -50,6 +55,19 @@ export class DeviceCategoryComponent {
         this.totalItems = v.data.total;
         this.loadingTable = false;
       });
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(CreateDeviceCategoryDialogComponent, {
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      if (result !== undefined) {
+        console.log(result);
+      }
+    });
   }
 
   constructor() {
