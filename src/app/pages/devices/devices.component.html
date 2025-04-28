@@ -42,7 +42,7 @@
           <ng-container matColumnDef="category">
             <th mat-header-cell *matHeaderCellDef>Category</th>
             <td mat-cell *matCellDef="let element">
-              {{ element.category.name }}
+              <app-category-tag [category]="element.category.name" />
             </td>
           </ng-container>
 

@@ -15,6 +15,7 @@ import {
 } from './components/dialogs/create-device-dialog/create-device-dialog.component';
 import { DeviceCategory } from '../../../interfaces/device-category.interface';
 import { DeviceCategoriesService } from '../../services/device-categories/device-categories.service';
+import { CategoryTagComponent } from '../../components/category-tag/category-tag.component';
 
 @Component({
   selector: 'app-devices',
@@ -27,6 +28,7 @@ import { DeviceCategoriesService } from '../../services/device-categories/device
     MatTableModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    CategoryTagComponent,
   ],
   templateUrl: './devices.component.html',
   styleUrl: './devices.component.scss',
