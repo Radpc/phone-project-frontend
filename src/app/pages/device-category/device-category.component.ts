@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateDeviceCategoryDialogComponent } from './components/dialogs/create-device-category-dialog/create-device-category-dialog.component';
 import { formatISODate } from '../../../utils/date-formatter';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { VisualizeDeviceCategoryDialogComponent } from './components/dialogs/visualize-device-category-dialog/visualize-device-category-dialog.component';
 
 @Component({
   selector: 'app-device-category',
@@ -32,7 +33,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 export class DeviceCategoryComponent {
   deviceCategoryService = inject(DeviceCategoriesService);
 
-  // Create device
+  // Dialogs
   readonly dialog = inject(MatDialog);
 
   // Table
@@ -64,7 +65,7 @@ export class DeviceCategoryComponent {
       });
   }
 
-  openDialog(): void {
+  openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateDeviceCategoryDialogComponent, {
       width: '400px',
     });
@@ -73,6 +74,13 @@ export class DeviceCategoryComponent {
       if (result) {
         this.getList({ page: this.currentPage, pageSize: this.pageSize });
       }
+    });
+  }
+
+  openDetailsDialog(deviceCategory: DeviceCategory): void {
+    this.dialog.open(VisualizeDeviceCategoryDialogComponent, {
+      width: '400px',
+      data: { deviceCategory },
     });
   }
 

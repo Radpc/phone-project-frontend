@@ -4,7 +4,7 @@
       <h1>Device categories</h1>
       <small>A list of device categories registered on the system</small>
     </div>
-    <button (click)="openDialog()" color="primary" mat-raised-button>
+    <button (click)="openCreateDialog()" color="primary" mat-raised-button>
       <mat-icon fontIcon="add" />
       Create category
     </button>
@@ -41,7 +41,11 @@
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Actions</th>
             <td mat-cell *matCellDef="let element">
-              <button matTooltip="See details" mat-button>
+              <button
+                (click)="openDetailsDialog(element)"
+                matTooltip="See details"
+                mat-button
+              >
                 <mat-icon fontIcon="visibility" />
               </button>
               <button matTooltip="Edit category" mat-button>

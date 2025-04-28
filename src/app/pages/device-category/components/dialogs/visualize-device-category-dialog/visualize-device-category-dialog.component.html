@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>Category details</h2>
+<mat-dialog-content>
+  <div class="details">
+    <div class="team">
+      <span class="field">ID:</span>
+      <span class="value">{{ data.deviceCategory.id }}</span>
+    </div>
+    <div class="team">
+      <span class="field">Name:</span>
+      <span class="value">{{ data.deviceCategory.name }}</span>
+    </div>
+    <div class="team">
+      <span class="field">Created on:</span>
+      <span class="value">{{ formatDate(data.deviceCategory.createdAt) }}</span>
+    </div>
+    <div class="team">
+      <span class="field">Updated on:</span>
+      <span class="value">{{ formatDate(data.deviceCategory.updatedAt) }}</span>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button (click)="onCloseClick()">Close</button>
+</mat-dialog-actions>
