@@ -36,7 +36,7 @@ $left-padding: 0.5rem;
       text-decoration: none;
 
       &.active {
-        background-color: red;
+        background-color: colors.$primary;
       }
 
       &:hover {
