@@ -9,6 +9,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Device } from '../../../interfaces/device.interface';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import {
   CreateDeviceDialogComponent,
   CreateDeviceDialogData,
@@ -16,6 +17,7 @@ import {
 import { DeviceCategory } from '../../../interfaces/device-category.interface';
 import { DeviceCategoriesService } from '../../services/device-categories/device-categories.service';
 import { CategoryTagComponent } from '../../components/category-tag/category-tag.component';
+import { MatFormField, MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-devices',
@@ -29,7 +31,11 @@ import { CategoryTagComponent } from '../../components/category-tag/category-tag
     MatPaginatorModule,
     MatProgressSpinnerModule,
     CategoryTagComponent,
+    MatDividerModule,
+    MatInputModule,
+    MatFormField,
   ],
+
   templateUrl: './devices.component.html',
   styleUrl: './devices.component.scss',
 })
@@ -42,7 +48,13 @@ export class DevicesComponent implements OnInit {
   dialogCategoryOptions: DeviceCategory[] = [];
 
   // Table
-  displayedColumns: string[] = ['id', 'color', 'partNumber', 'category'];
+  displayedColumns: string[] = [
+    'id',
+    'color',
+    'partNumber',
+    'category',
+    'actions',
+  ];
   dataSource: Device[] = [];
   currentPage = 1;
   pageSize = 10;

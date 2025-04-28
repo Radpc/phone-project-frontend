@@ -3,7 +3,7 @@
   <div *ngIf="!loading; else loadingTemplate">
     <p>Please fill the fields below</p>
     <form (submit)="submit()" [formGroup]="formValidator">
-      <mat-form-field class="field">
+      <mat-form-field appearance="outline" class="field">
         <mat-label>Device color</mat-label>
         <input placeholder="Black" matInput formControlName="color" />
         <mat-error *ngIf="isInvalid('color')">
@@ -11,7 +11,7 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field class="field">
+      <mat-form-field appearance="outline" class="field">
         <mat-label>Part number</mat-label>
         <input
           type="number"
@@ -24,7 +24,7 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field class="field">
+      <mat-form-field appearance="outline" class="field">
         <mat-label>Category</mat-label>
         <mat-select formControlName="category">
           @for (category of data.categoryOptions; track category.id) {

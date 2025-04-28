@@ -1,14 +1,25 @@
+@use "colors" as colors;
+
 .page.devices {
   > header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 0.3rem;
+    margin-bottom: 1rem;
 
     .left {
       h1 {
+        color: colors.$primary;
         margin-bottom: 0;
+        font-weight: bold;
+      }
+
+      small {
+        color: colors.$neutral-2;
       }
     }
+  }
+  .mat-column-actions {
+    width: 230px;
   }
 }

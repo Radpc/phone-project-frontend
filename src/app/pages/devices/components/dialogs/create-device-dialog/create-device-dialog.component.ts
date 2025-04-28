@@ -66,7 +66,10 @@ export class CreateDeviceDialogComponent {
   }
 
   formValidator = new FormGroup({
-    color: new FormControl('', [Validators.required]),
+    color: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[a-zA-Z ]*$'),
+    ]),
     partNumber: new FormControl('', [
       Validators.required,
       Validators.pattern('^[0-9]*$'),

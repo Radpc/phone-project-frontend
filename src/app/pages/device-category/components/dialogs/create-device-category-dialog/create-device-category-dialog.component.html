@@ -3,7 +3,7 @@
   <div *ngIf="!loading; else loadingTemplate">
     <p>Please fill the fields below</p>
     <form (submit)="submit()" [formGroup]="formValidator">
-      <mat-form-field class="field">
+      <mat-form-field appearance="outline" class="field">
         <mat-label>Category name</mat-label>
         <input placeholder="Category A" matInput formControlName="name" />
         <mat-error *ngIf="isInvalid('name')">
