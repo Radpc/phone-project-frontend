@@ -1,7 +1,10 @@
 <h2 mat-dialog-title>Remove category</h2>
 <mat-dialog-content *ngIf="!loading; else loadingTemplate">
-  <h2>Are you sure?</h2>
-  <p>This category will be removed from the system</p>
+  <h2 class="title">Are you sure?</h2>
+  <p>
+    The category "<b>{{ data.deviceCategory.name }}</b
+    >" will be removed from the system. This action is not reversible.
+  </p>
 </mat-dialog-content>
 <ng-template #loadingTemplate>
   <div class="loading">
@@ -15,7 +18,7 @@
   <button
     [disabled]="loading"
     mat-flat-button
-    color="primary"
+    color="warn"
     (click)="onConfirmClick()"
   >
     Confirm
