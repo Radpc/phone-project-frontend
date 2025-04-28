@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, model, signal } from '@angular/core';
 import { DevicesService } from '../../services/devices/devices.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,6 +8,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Device } from '../../../interfaces/device.interface';
 import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateDeviceDialogComponent } from './components/dialogs/create-device-dialog/create-device-dialog.component';
 
 @Component({
   selector: 'app-devices',
@@ -27,6 +29,9 @@ import { CommonModule } from '@angular/common';
 export class DevicesComponent {
   devicesService = inject(DevicesService);
   loadingTable = false;
+
+  // Create device
+  readonly dialog = inject(MatDialog);
 
   // Table
   displayedColumns: string[] = ['id', 'color', 'partNumber'];
@@ -50,6 +55,19 @@ export class DevicesComponent {
         this.totalItems = v.data.total;
         this.loadingTable = false;
       });
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(CreateDeviceDialogComponent, {
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      if (result !== undefined) {
+        console.log(result);
+      }
+    });
   }
 
   constructor() {

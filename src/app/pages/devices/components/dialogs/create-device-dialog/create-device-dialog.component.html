@@ -1,1 +1,40 @@
-<p>create-device-dialog works!</p>
+<h2 mat-dialog-title>Create device</h2>
+<mat-dialog-content>
+  <p>Please fill the fields below</p>
+  <form (submit)="submit()" [formGroup]="formValidator">
+    <mat-form-field class="field">
+      <mat-label>Device color</mat-label>
+      <input placeholder="Black" matInput formControlName="color" />
+      <mat-error *ngIf="isInvalid('color')">
+        {{ getFieldError("color") }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="field">
+      <mat-label>Part number</mat-label>
+      <input
+        type="number"
+        placeholder="70"
+        matInput
+        formControlName="partNumber"
+      />
+      <mat-error *ngIf="isInvalid('partNumber')">
+        {{ getFieldError("partNumber") }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="field">
+      <mat-label>Category</mat-label>
+      <input placeholder="Category A" matInput formControlName="category" />
+      <mat-error *ngIf="isInvalid('category')">
+        {{ getFieldError("category") }}
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button (click)="onNoClick()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="submit()" cdkFocusInitial>
+    Create
+  </button>
+</mat-dialog-actions>

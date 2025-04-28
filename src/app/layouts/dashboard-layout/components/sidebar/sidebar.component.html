@@ -2,11 +2,9 @@
   <span>Page accessses</span>
   <nav>
     @for (item of itemsList; track item.url) {
-    <a
-      [className]="currentUrl.endsWith(item.url) ? 'active' : ''"
-      [routerLink]="item.url"
-      >{{ item.name }}</a
-    >
+    <a [class.active]="currentUrl.endsWith(item.url)" [routerLink]="item.url">{{
+      item.name
+    }}</a>
     }
   </nav>
 </div>
