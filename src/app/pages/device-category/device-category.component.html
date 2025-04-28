@@ -61,7 +61,11 @@
               >
                 <mat-icon fontIcon="visibility" />
               </button>
-              <button matTooltip="Edit category" mat-button>
+              <button
+                (click)="openEditDialog(element)"
+                matTooltip="Edit category"
+                mat-button
+              >
                 <mat-icon fontIcon="edit" />
               </button>
               <button

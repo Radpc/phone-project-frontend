@@ -16,6 +16,7 @@ import { VisualizeDeviceCategoryDialogComponent } from './components/dialogs/vis
 import { MatFormField, MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { DeleteDeviceCategoryDialogComponent } from './components/dialogs/delete-device-category-dialog/delete-device-category-dialog.component';
+import { EditDeviceCategoryDialogComponent } from './components/dialogs/edit-device-category-dialog/edit-device-category-dialog.component';
 
 @Component({
   selector: 'app-device-category',
@@ -90,6 +91,19 @@ export class DeviceCategoryComponent {
 
   openeDeleteDialog(deviceCategory: DeviceCategory): void {
     const dialogRef = this.dialog.open(DeleteDeviceCategoryDialogComponent, {
+      width: '400px',
+      data: { deviceCategory },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.getList({ page: this.currentPage, pageSize: this.pageSize });
+      }
+    });
+  }
+
+  openEditDialog(deviceCategory: DeviceCategory): void {
+    const dialogRef = this.dialog.open(EditDeviceCategoryDialogComponent, {
       width: '400px',
       data: { deviceCategory },
     });

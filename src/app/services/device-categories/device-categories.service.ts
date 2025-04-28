@@ -8,6 +8,11 @@ import {
 } from '../../../utils/api-responses/success-response.interface';
 import { DeviceCategory } from '../../../interfaces/device-category.interface';
 
+export interface ICreateDeviceCategory {
+  name: string;
+}
+
+export type IUpdateDeviceCategory = Partial<ICreateDeviceCategory>;
 @Injectable({
   providedIn: 'root',
 })
@@ -28,9 +33,21 @@ export class DeviceCategoriesService {
     );
   }
 
-  create(data: { name: string }): Observable<SuccessResponse<DeviceCategory>> {
+  create(
+    data: ICreateDeviceCategory
+  ): Observable<SuccessResponse<DeviceCategory>> {
     return this.http.post<SuccessResponse<DeviceCategory>>(
       this.apiBase + 'device-categories',
+      data
+    );
+  }
+
+  update(
+    deviceCategoryId: number,
+    data: IUpdateDeviceCategory
+  ): Observable<SuccessResponse<DeviceCategory>> {
+    return this.http.patch<SuccessResponse<DeviceCategory>>(
+      this.apiBase + 'device-categories/' + deviceCategoryId,
       data
     );
   }
