@@ -77,7 +77,11 @@
               <button matTooltip="Edit category" mat-button>
                 <mat-icon fontIcon="edit" />
               </button>
-              <button matTooltip="Remove category" mat-button>
+              <button
+                (click)="openeDeleteDialog(element)"
+                matTooltip="Remove category"
+                mat-button
+              >
                 <mat-icon fontIcon="close" />
               </button>
             </td>

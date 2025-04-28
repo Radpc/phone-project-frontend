@@ -38,4 +38,10 @@ export class DevicesService {
       data
     );
   }
+
+  delete(deviceId: number): Observable<SuccessResponse<Device>> {
+    return this.http.delete<SuccessResponse<Device>>(
+      this.apiBase + 'devices/' + deviceId
+    );
+  }
 }

@@ -8,18 +8,19 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
-import { DeviceCategory } from '../../../../../../interfaces/device-category.interface';
 import { formatISODate } from '../../../../../../utils/date-formatter';
 import { DeviceCategoriesService } from '../../../../../services/device-categories/device-categories.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
+import { Device } from '../../../../../../interfaces/device.interface';
+import { DevicesService } from '../../../../../services/devices/devices.service';
 
 export interface DialogData {
-  deviceCategory: DeviceCategory;
+  device: Device;
 }
 
 @Component({
-  selector: 'app-delete-device-category-dialog',
+  selector: 'app-delete-device-dialog',
   standalone: true,
   imports: [
     MatDialogActions,
@@ -29,14 +30,12 @@ export interface DialogData {
     CommonModule,
     MatProgressSpinnerModule,
   ],
-  templateUrl: './delete-device-category-dialog.component.html',
-  styleUrl: './delete-device-category-dialog.component.scss',
+  templateUrl: './delete-device-dialog.component.html',
+  styleUrl: './delete-device-dialog.component.scss',
 })
-export class DeleteDeviceCategoryDialogComponent {
-  readonly deviceCategoryService = inject(DeviceCategoriesService);
-  readonly dialogRef = inject(
-    MatDialogRef<DeleteDeviceCategoryDialogComponent>
-  );
+export class DeleteDeviceDialogComponent {
+  readonly deviceService = inject(DevicesService);
+  readonly dialogRef = inject(MatDialogRef<DeleteDeviceDialogComponent>);
   readonly data = inject<DialogData>(MAT_DIALOG_DATA);
   loading = false;
 
@@ -46,7 +45,7 @@ export class DeleteDeviceCategoryDialogComponent {
 
   onConfirmClick(): void {
     this.loading = true;
-    this.deviceCategoryService.delete(this.data.deviceCategory.id).subscribe({
+    this.deviceService.delete(this.data.device.id).subscribe({
       next: () => {
         this.dialogRef.close(true);
       },

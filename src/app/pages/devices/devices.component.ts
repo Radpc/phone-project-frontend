@@ -19,6 +19,7 @@ import { DeviceCategoriesService } from '../../services/device-categories/device
 import { CategoryTagComponent } from '../../components/category-tag/category-tag.component';
 import { MatFormField, MatInputModule } from '@angular/material/input';
 import { VisualizeDeviceDialogComponent } from './components/dialogs/visualize-device-dialog/visualize-device-dialog.component';
+import { DeleteDeviceDialogComponent } from './components/dialogs/delete-device-dialog/delete-device-dialog.component';
 
 @Component({
   selector: 'app-devices',
@@ -98,6 +99,19 @@ export class DevicesComponent implements OnInit {
     this.dialog.open(VisualizeDeviceDialogComponent, {
       width: '400px',
       data: { device },
+    });
+  }
+
+  openeDeleteDialog(device: Device): void {
+    const dialogRef = this.dialog.open(DeleteDeviceDialogComponent, {
+      width: '400px',
+      data: { device },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.getList({ page: this.currentPage, pageSize: this.pageSize });
+      }
     });
   }
 
