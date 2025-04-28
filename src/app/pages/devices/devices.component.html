@@ -4,7 +4,7 @@
       <h1>Devices</h1>
       <small>A list of devices registered on the system</small>
     </div>
-    <button color="primary" (click)="openDialog()" mat-raised-button>
+    <button color="primary" (click)="openCreateDialog()" mat-raised-button>
       <mat-icon fontIcon="add" />
       Create device
     </button>
@@ -15,8 +15,12 @@
         <header>
           <div class="filters">
             <mat-form-field appearance="outline">
-              <mat-label>Category name</mat-label>
-              <input placeholder="Category A" matInput formControlName="name" />
+              <mat-label>Search</mat-label>
+              <input
+                placeholder="Color or category name"
+                matInput
+                formControlName="name"
+              />
               <mat-icon matPrefix>search</mat-icon>
             </mat-form-field>
             <button mat-flat-button>Search</button>

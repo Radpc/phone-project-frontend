@@ -13,6 +13,8 @@ import { CreateDeviceCategoryDialogComponent } from './components/dialogs/create
 import { formatISODate } from '../../../utils/date-formatter';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { VisualizeDeviceCategoryDialogComponent } from './components/dialogs/visualize-device-category-dialog/visualize-device-category-dialog.component';
+import { MatFormField, MatInputModule } from '@angular/material/input';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-device-category',
@@ -26,6 +28,9 @@ import { VisualizeDeviceCategoryDialogComponent } from './components/dialogs/vis
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
+    MatDividerModule,
+    MatInputModule,
+    MatFormField,
   ],
   templateUrl: './device-category.component.html',
   styleUrl: './device-category.component.scss',

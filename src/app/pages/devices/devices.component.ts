@@ -78,7 +78,7 @@ export class DevicesComponent implements OnInit {
       });
   }
 
-  openDialog(): void {
+  openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateDeviceDialogComponent, {
       width: '400px',
       data: {
