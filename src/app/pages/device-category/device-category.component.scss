@@ -22,4 +22,18 @@
   .mat-column-actions {
     width: 230px;
   }
+
+  .loading-table {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: 3rem;
+  }
+
+  .table-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-block: 2rem;
+  }
 }

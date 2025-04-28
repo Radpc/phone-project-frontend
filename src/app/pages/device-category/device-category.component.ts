@@ -48,6 +48,7 @@ export class DeviceCategoryComponent {
   pageSize = 10;
   totalItems = 0;
   loadingTable = false;
+  tableError = false;
 
   formatDate(str: string) {
     return formatISODate(str);
@@ -61,12 +62,19 @@ export class DeviceCategoryComponent {
 
   getList(options: { page: number; pageSize: number }) {
     this.loadingTable = true;
+    this.tableError = false;
     this.deviceCategoryService
       .getList({ page: options.page, pageSize: options.pageSize })
-      .subscribe((v) => {
-        this.dataSource = v.data.items;
-        this.totalItems = v.data.total;
-        this.loadingTable = false;
+      .subscribe({
+        error: (e) => {
+          this.tableError = true;
+          this.loadingTable = false;
+        },
+        next: (v) => {
+          this.dataSource = v.data.items;
+          this.totalItems = v.data.total;
+          this.loadingTable = false;
+        },
       });
   }
 

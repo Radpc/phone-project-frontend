@@ -63,6 +63,7 @@ export class DevicesComponent implements OnInit {
   pageSize = 10;
   totalItems = 0;
   loadingTable = false;
+  tableError = false;
 
   onSelectPage(event: PageEvent) {
     this.currentPage = event.pageIndex + 1;
@@ -74,10 +75,16 @@ export class DevicesComponent implements OnInit {
     this.loadingTable = true;
     this.devicesService
       .getList({ page: options.page, pageSize: options.pageSize })
-      .subscribe((v) => {
-        this.dataSource = v.data.items;
-        this.totalItems = v.data.total;
-        this.loadingTable = false;
+      .subscribe({
+        error: (e) => {
+          this.tableError = true;
+          this.loadingTable = false;
+        },
+        next: (v) => {
+          this.dataSource = v.data.items;
+          this.totalItems = v.data.total;
+          this.loadingTable = false;
+        },
       });
   }
 

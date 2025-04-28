@@ -95,8 +95,19 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
 
+        <div class="table-error" *ngIf="!loadingTable && tableError">
+          <h1>An error has occurred</h1>
+          <small>The table content could not be loaded right now.</small>
+          <small
+            >Please check your internet access and/or contact the
+            developer</small
+          >
+        </div>
+
         <ng-template #loadingTemplate>
-          <mat-spinner />
+          <div class="loading-table">
+            <mat-spinner />
+          </div>
         </ng-template>
 
         <mat-paginator
