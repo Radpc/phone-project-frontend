@@ -1,5 +1,5 @@
 <div class="component sidebar">
-  <span>Page accessses</span>
+  <span>Page accesses</span>
   <nav>
     @for (item of itemsList; track item.url) {
     <a [class.active]="currentUrl.endsWith(item.url)" [routerLink]="item.url">{{

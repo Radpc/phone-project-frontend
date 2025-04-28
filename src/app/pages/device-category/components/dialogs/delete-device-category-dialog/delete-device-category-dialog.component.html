@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Remove category</h2>
+<mat-dialog-content *ngIf="!loading; else loadingTemplate">
+  <h2>Are you sure?</h2>
+  <p>This category will be removed from the system</p>
+</mat-dialog-content>
+<ng-template #loadingTemplate>
+  <div class="loading">
+    <mat-spinner />
+  </div>
+</ng-template>
+<mat-dialog-actions align="end">
+  <button [disabled]="loading" mat-flat-button (click)="onCloseClick()">
+    Cancel
+  </button>
+  <button
+    [disabled]="loading"
+    mat-flat-button
+    color="primary"
+    (click)="onConfirmClick()"
+  >
+    Confirm
+  </button>
+</mat-dialog-actions>

@@ -15,6 +15,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { VisualizeDeviceCategoryDialogComponent } from './components/dialogs/visualize-device-category-dialog/visualize-device-category-dialog.component';
 import { MatFormField, MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
+import { DeleteDeviceCategoryDialogComponent } from './components/dialogs/delete-device-category-dialog/delete-device-category-dialog.component';
 
 @Component({
   selector: 'app-device-category',
@@ -36,9 +37,7 @@ import { MatDividerModule } from '@angular/material/divider';
   styleUrl: './device-category.component.scss',
 })
 export class DeviceCategoryComponent {
-  deviceCategoryService = inject(DeviceCategoriesService);
-
-  // Dialogs
+  readonly deviceCategoryService = inject(DeviceCategoriesService);
   readonly dialog = inject(MatDialog);
 
   // Table
@@ -86,6 +85,19 @@ export class DeviceCategoryComponent {
     this.dialog.open(VisualizeDeviceCategoryDialogComponent, {
       width: '400px',
       data: { deviceCategory },
+    });
+  }
+
+  openeDeleteDialog(deviceCategory: DeviceCategory): void {
+    const dialogRef = this.dialog.open(DeleteDeviceCategoryDialogComponent, {
+      width: '400px',
+      data: { deviceCategory },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.getList({ page: this.currentPage, pageSize: this.pageSize });
+      }
     });
   }
 

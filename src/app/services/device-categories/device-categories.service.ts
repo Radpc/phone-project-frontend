@@ -34,4 +34,12 @@ export class DeviceCategoriesService {
       data
     );
   }
+
+  delete(
+    deviceCategoryId: number
+  ): Observable<SuccessResponse<DeviceCategory>> {
+    return this.http.delete<SuccessResponse<DeviceCategory>>(
+      this.apiBase + 'device-categories/' + deviceCategoryId
+    );
+  }
 }

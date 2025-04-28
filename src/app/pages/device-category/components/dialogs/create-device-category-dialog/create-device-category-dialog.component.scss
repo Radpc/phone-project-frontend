@@ -8,3 +8,9 @@ form {
     flex-grow: 1;
   }
 }
+
+.loading {
+  display: flex;
+  justify-content: center;
+  padding-block: 1rem;
+}
