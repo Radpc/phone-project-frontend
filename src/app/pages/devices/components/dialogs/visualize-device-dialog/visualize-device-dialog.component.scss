@@ -1,0 +1,13 @@
+.details {
+  display: flex;
+  flex-direction: column;
+
+  .team {
+    display: flex;
+    justify-content: space-between;
+
+    .field {
+      font-weight: bold;
+    }
+  }
+}

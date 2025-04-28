@@ -18,6 +18,7 @@ import { DeviceCategory } from '../../../interfaces/device-category.interface';
 import { DeviceCategoriesService } from '../../services/device-categories/device-categories.service';
 import { CategoryTagComponent } from '../../components/category-tag/category-tag.component';
 import { MatFormField, MatInputModule } from '@angular/material/input';
+import { VisualizeDeviceDialogComponent } from './components/dialogs/visualize-device-dialog/visualize-device-dialog.component';
 
 @Component({
   selector: 'app-devices',
@@ -90,6 +91,13 @@ export class DevicesComponent implements OnInit {
       if (result) {
         this.getList({ page: this.currentPage, pageSize: this.pageSize });
       }
+    });
+  }
+
+  openDetailsDialog(device: Device): void {
+    this.dialog.open(VisualizeDeviceDialogComponent, {
+      width: '400px',
+      data: { device },
     });
   }
 

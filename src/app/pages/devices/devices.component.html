@@ -67,7 +67,11 @@
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Actions</th>
             <td mat-cell *matCellDef="let element">
-              <button matTooltip="See details" mat-button>
+              <button
+                (click)="openDetailsDialog(element)"
+                matTooltip="See details"
+                mat-button
+              >
                 <mat-icon fontIcon="visibility" />
               </button>
               <button matTooltip="Edit category" mat-button>
