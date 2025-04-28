@@ -28,7 +28,6 @@ import { CreateDeviceDialogComponent } from './components/dialogs/create-device-
 })
 export class DevicesComponent {
   devicesService = inject(DevicesService);
-  loadingTable = false;
 
   // Create device
   readonly dialog = inject(MatDialog);
@@ -39,6 +38,7 @@ export class DevicesComponent {
   currentPage = 1;
   pageSize = 10;
   totalItems = 0;
+  loadingTable = false;
 
   onSelectPage(event: PageEvent) {
     this.currentPage = event.pageIndex + 1;

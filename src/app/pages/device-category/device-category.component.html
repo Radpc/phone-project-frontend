@@ -1,1 +1,52 @@
-<p>device-category works!</p>
+<div class="page device-categories">
+  <header>
+    <div class="left">
+      <h1>Device categories</h1>
+      <small>A list of device categories registered on the system</small>
+    </div>
+    <button color="primary" mat-raised-button>
+      <mat-icon fontIcon="add" />
+      Create category
+    </button>
+  </header>
+  <main>
+    <mat-card appearance="outlined">
+      <mat-card-content>
+        <table
+          *ngIf="!loadingTable; else loadingTemplate"
+          mat-table
+          [dataSource]="dataSource"
+        >
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>No.</th>
+            <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <ng-template #loadingTemplate>
+          <mat-spinner />
+        </ng-template>
+
+        <mat-paginator
+          [disabled]="loadingTable"
+          (page)="onSelectPage($event)"
+          [length]="totalItems"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[1, 5, 10, 25, 50]"
+          aria-label="Select page"
+        >
+        </mat-paginator>
+      </mat-card-content>
+    </mat-card>
+  </main>
+</div>
