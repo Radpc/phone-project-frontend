@@ -1,0 +1,50 @@
+<h2 mat-dialog-title>Edit device</h2>
+<mat-dialog-content>
+  <div *ngIf="!loading; else loadingTemplate">
+    <p>Please fill the fields below</p>
+    <form (submit)="submit()" [formGroup]="formValidator">
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Device color</mat-label>
+        <input placeholder="Black" matInput formControlName="color" />
+        <mat-error *ngIf="isInvalid('color')">
+          {{ getFieldError("color") }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Part number</mat-label>
+        <input
+          type="number"
+          placeholder="70"
+          matInput
+          formControlName="partNumber"
+        />
+        <mat-error *ngIf="isInvalid('partNumber')">
+          {{ getFieldError("partNumber") }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category">
+          @for (category of data.categoryOptions; track category.id) {
+          <mat-option [value]="category.id">{{ category.name }}</mat-option>
+          }
+        </mat-select>
+        <mat-error *ngIf="isInvalid('category')">
+          {{ getFieldError("category") }}
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+
+  <ng-template #loadingTemplate>
+    <mat-spinner />
+  </ng-template>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button (click)="onNoClick()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="submit()" cdkFocusInitial>
+    Create
+  </button>
+</mat-dialog-actions>

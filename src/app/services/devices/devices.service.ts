@@ -8,6 +8,14 @@ import {
 } from '../../../utils/api-responses/success-response.interface';
 import { Device } from '../../../interfaces/device.interface';
 
+export interface ICreateDevice {
+  color: string;
+  partNumber: number;
+  categoryId: number;
+}
+
+export type IUpdateDevice = Partial<ICreateDevice>;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -28,14 +36,20 @@ export class DevicesService {
     );
   }
 
-  create(data: {
-    color: string;
-    partNumber: number;
-    categoryId: number;
-  }): Observable<SuccessResponse<Device>> {
+  create(data: ICreateDevice): Observable<SuccessResponse<Device>> {
     return this.http.post<SuccessResponse<Device>>(
       this.apiBase + 'devices',
       data
+    );
+  }
+
+  update(
+    deviceId: number,
+    payload: IUpdateDevice
+  ): Observable<SuccessResponse<Device>> {
+    return this.http.patch<SuccessResponse<Device>>(
+      this.apiBase + 'devices/' + deviceId,
+      payload
     );
   }
 

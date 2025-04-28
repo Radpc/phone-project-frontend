@@ -22,15 +22,17 @@ import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DevicesService } from '../../../../../services/devices/devices.service';
+import { Device } from '../../../../../../interfaces/device.interface';
 
-export interface CreateDeviceDialogData {
+export interface EditDeviceDialogData {
+  device: Device;
   categoryOptions: DeviceCategory[];
 }
 
 /** Error when invalid control is dirty, touched, or submitted. */
 
 @Component({
-  selector: 'app-create-device-dialog',
+  selector: 'app-edit-device-dialog',
   standalone: true,
   imports: [
     MatInputModule,
@@ -45,14 +47,14 @@ export interface CreateDeviceDialogData {
     MatProgressSpinnerModule,
     MatSelectModule,
   ],
-  templateUrl: './create-device-dialog.component.html',
-  styleUrl: './create-device-dialog.component.scss',
+  templateUrl: './edit-device-dialog.component.html',
+  styleUrl: './edit-device-dialog.component.scss',
 })
-export class CreateDeviceDialogComponent {
+export class EditDeviceDialogComponent {
   deviceService = inject(DevicesService);
 
-  readonly dialogRef = inject(MatDialogRef<CreateDeviceDialogComponent>);
-  readonly data = inject<CreateDeviceDialogData>(MAT_DIALOG_DATA);
+  readonly dialogRef = inject(MatDialogRef<EditDeviceDialogComponent>);
+  readonly data = inject<EditDeviceDialogData>(MAT_DIALOG_DATA);
   loading = false;
 
   onNoClick(): void {
@@ -60,15 +62,17 @@ export class CreateDeviceDialogComponent {
   }
 
   formValidator = new FormGroup({
-    color: new FormControl('', [
+    color: new FormControl(this.data.device.color, [
       Validators.required,
       Validators.pattern('^[a-zA-Z ]*$'),
     ]),
-    partNumber: new FormControl('', [
+    partNumber: new FormControl(this.data.device.partNumber.toString(), [
       Validators.required,
       Validators.pattern('^[0-9]*$'),
     ]),
-    category: new FormControl('', [Validators.required]),
+    category: new FormControl(this.data.device.category?.id, [
+      Validators.required,
+    ]),
   });
 
   isInvalid(field: keyof typeof this.formValidator.controls) {
@@ -86,7 +90,7 @@ export class CreateDeviceDialogComponent {
     this.loading = true;
     const formValues = this.formValidator.value;
     return this.deviceService
-      .create({
+      .update(this.data.device.id, {
         color: formValues.color!,
         categoryId: +formValues.category!,
         partNumber: Number(formValues.partNumber!),

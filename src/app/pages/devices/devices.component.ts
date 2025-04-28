@@ -20,6 +20,7 @@ import { CategoryTagComponent } from '../../components/category-tag/category-tag
 import { MatFormField, MatInputModule } from '@angular/material/input';
 import { VisualizeDeviceDialogComponent } from './components/dialogs/visualize-device-dialog/visualize-device-dialog.component';
 import { DeleteDeviceDialogComponent } from './components/dialogs/delete-device-dialog/delete-device-dialog.component';
+import { EditDeviceDialogComponent } from './components/dialogs/edit-device-dialog/edit-device-dialog.component';
 
 @Component({
   selector: 'app-devices',
@@ -102,10 +103,23 @@ export class DevicesComponent implements OnInit {
     });
   }
 
-  openeDeleteDialog(device: Device): void {
+  openDeleteDialog(device: Device): void {
     const dialogRef = this.dialog.open(DeleteDeviceDialogComponent, {
       width: '400px',
       data: { device },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.getList({ page: this.currentPage, pageSize: this.pageSize });
+      }
+    });
+  }
+
+  openEditDialog(device: Device): void {
+    const dialogRef = this.dialog.open(EditDeviceDialogComponent, {
+      width: '400px',
+      data: { device, categoryOptions: this.dialogCategoryOptions },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
