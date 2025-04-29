@@ -1,10 +1,19 @@
 <h2 mat-dialog-title>Remove category</h2>
 <mat-dialog-content *ngIf="!loading; else loadingTemplate">
-  <h2 class="title">Are you sure?</h2>
-  <p>
-    The category "<b>{{ data.deviceCategory.name }}</b
-    >" will be removed from the system. This action is not reversible.
-  </p>
+  <div *ngIf="!categoryHasRelations; else hasRelations">
+    <h2 class="title">Are you sure?</h2>
+    <p>
+      The category "<b>{{ data.deviceCategory.name }}</b
+      >" will be removed from the system. This action is not reversible.
+    </p>
+  </div>
+  <ng-template #hasRelations>
+    <h2 class="title">This category cannot be deleted</h2>
+    <p>
+      The category "<b>{{ data.deviceCategory.name }}</b
+      >" is already related to a registered device.
+    </p>
+  </ng-template>
 </mat-dialog-content>
 <ng-template #loadingTemplate>
   <div class="loading">
@@ -16,7 +25,7 @@
     Cancel
   </button>
   <button
-    [disabled]="loading"
+    [disabled]="loading || categoryHasRelations"
     mat-flat-button
     color="warn"
     (click)="onConfirmClick()"

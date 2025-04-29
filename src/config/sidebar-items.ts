@@ -2,10 +2,6 @@ import { ISidebarItem } from '../app/layouts/dashboard-layout/components/sidebar
 
 export const sidebarItems: ISidebarItem[] = [
   {
-    name: 'Home',
-    url: '/',
-  },
-  {
     name: 'Devices',
     url: '/dashboard/device',
   },

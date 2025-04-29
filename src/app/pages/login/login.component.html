@@ -2,6 +2,7 @@
   <mat-card-content>
     <form class="component login" [formGroup]="formValidator">
       <h1>Device central</h1>
+      <small>Your place for managing phones and notebooks</small>
       <mat-form-field appearance="outline" class="field">
         <mat-label>E-mail</mat-label>
         <input
@@ -26,14 +27,27 @@
           {{ getFieldError("password") }}
         </mat-error>
       </mat-form-field>
-      <button
-        type="button"
-        (click)="onSubmitLogin()"
-        mat-flat-button
-        color="primary"
-      >
-        Login
-      </button>
+
+      <small class="access">
+        <b>{{ "userA@email.com" }}</b> - 123
+      </small>
+
+      <p>
+        A project made by
+        <a href="https://github.com/Radpc" target="_blank">Matheus M.</a>
+      </p>
+
+      <div class="buttons">
+        <button type="button" mat-stroked-button>Register</button>
+        <button
+          type="button"
+          (click)="onSubmitLogin()"
+          mat-flat-button
+          color="primary"
+        >
+          Login
+        </button>
+      </div>
     </form>
   </mat-card-content>
 </mat-card>
