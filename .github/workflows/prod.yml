@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "14.x"
+      - uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: NPM Install
+        run: npm install
+
+      - name: NPM Install Angular
+        run: npm install -g @angular/cli > /dev/null
+
+      #   - name: Lint
+      #     run: npm run lint
+
+      - name: NPM build Angular Production
+        run: npm run build
+
+      - name: Deploy to my EC2 instance
+        uses: easingthemes/ssh-deploy@v2.1.5
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY}}
+          SOURCE: "dist/phone-project-frontend/browser/"
+          REMOTE_HOST: ${{ secrets.EC2_HOST}}
+          REMOTE_USER: ${{ secrets.EC2_USER}}
+          TARGET: "/var/www/html/"
