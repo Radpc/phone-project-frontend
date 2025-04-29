@@ -1,4 +1,17 @@
 <mat-card>
+  <mat-card-header>
+    <mat-card-title> Access </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <small class="access">
+      Login: <b>{{ "userA@email.com" }}</b>
+      <br />
+      Password: <b>123</b>
+    </small>
+  </mat-card-content>
+</mat-card>
+<br />
+<mat-card>
   <mat-card-content>
     <form class="component login" [formGroup]="formValidator">
       <h1>Device central</h1>
@@ -28,17 +41,13 @@
         </mat-error>
       </mat-form-field>
 
-      <small class="access">
-        <b>{{ "userA@email.com" }}</b> - 123
-      </small>
-
       <p>
         A project made by
         <a href="https://github.com/Radpc" target="_blank">Matheus M.</a>
       </p>
 
       <div class="buttons">
-        <button type="button" mat-stroked-button>Register</button>
+        <button disabled type="button" mat-stroked-button>Register</button>
         <button
           type="button"
           (click)="onSubmitLogin()"
