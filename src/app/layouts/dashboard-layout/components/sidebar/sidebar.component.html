@@ -1,5 +1,5 @@
 <div class="component sidebar">
-  <span>Page accesses</span>
+  <span class="label">Useful links</span>
   <nav>
     @for (item of itemsList; track item.url) {
     <a [class.active]="currentUrl.endsWith(item.url)" [routerLink]="item.url">{{
@@ -7,4 +7,5 @@
     }}</a>
     }
   </nav>
+  <div class="footer">Made as an <b>entrance project</b></div>
 </div>

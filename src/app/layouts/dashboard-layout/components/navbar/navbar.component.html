@@ -1,10 +1,15 @@
 <div class="component navbar">
   <span class="title">
     <mat-icon fontIcon="tablet" />
-    Device Central</span
-  >
+    <div class="texts">
+      <span class="title"> Device Central </span>
+      <small>Your device dashboard</small>
+    </div>
+  </span>
   <div class="buttons">
-    <button mat-flat-button color="accent">Github</button>
+    <a href="https://github.com/Radpc" target="_blank">
+      <button mat-flat-button color="accent">Github</button>
+    </a>
     <button (click)="logout()" mat-flat-button color="accent">Logout</button>
   </div>
 </div>
