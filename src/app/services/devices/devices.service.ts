@@ -1,5 +1,5 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 import {
@@ -7,6 +7,7 @@ import {
   SuccessResponse,
 } from '../../../utils/api-responses/success-response.interface';
 import { Device } from '../../../interfaces/device.interface';
+import { StorageService } from '../storage/storage.service';
 
 export interface ICreateDevice {
   color: string;
@@ -20,7 +21,19 @@ export type IUpdateDevice = Partial<ICreateDevice>;
   providedIn: 'root',
 })
 export class DevicesService {
+  storageService = inject(StorageService);
   apiBase = environment.baseAPIPath;
+
+  private getHeader(): {
+    [header: string]: string | string[];
+  } {
+    const token = this.storageService.get('access-token');
+    if (token) {
+      return { authorization: 'Bearer ' + token };
+    } else {
+      return {};
+    }
+  }
 
   constructor(private http: HttpClient) {}
 
@@ -32,14 +45,15 @@ export class DevicesService {
 
     return this.http.get<SuccessPaginatedResponse<Device>>(
       this.apiBase + 'devices',
-      { params: requestParams }
+      { params: requestParams, headers: this.getHeader() }
     );
   }
 
   create(data: ICreateDevice): Observable<SuccessResponse<Device>> {
     return this.http.post<SuccessResponse<Device>>(
       this.apiBase + 'devices',
-      data
+      data,
+      { headers: this.getHeader() }
     );
   }
 
@@ -49,13 +63,15 @@ export class DevicesService {
   ): Observable<SuccessResponse<Device>> {
     return this.http.patch<SuccessResponse<Device>>(
       this.apiBase + 'devices/' + deviceId,
-      payload
+      payload,
+      { headers: this.getHeader() }
     );
   }
 
   delete(deviceId: number): Observable<SuccessResponse<Device>> {
     return this.http.delete<SuccessResponse<Device>>(
-      this.apiBase + 'devices/' + deviceId
+      this.apiBase + 'devices/' + deviceId,
+      { headers: this.getHeader() }
     );
   }
 }
