@@ -1,7 +1,22 @@
+@use "colors" as colors;
 .layout.auth {
   display: flex;
   align-items: center;
   justify-content: center;
   background: url("https://images.pexels.com/photos/207589/pexels-photo-207589.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
   background-size: cover;
+  position: relative;
+
+  .footer {
+    position: absolute;
+    background-color: #303030;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: white;
+    padding: 0.2rem;
+    font-size: 12px;
+    font-weight: 500;
+  }
 }
