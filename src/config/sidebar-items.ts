@@ -7,10 +7,10 @@ export const sidebarItems: ISidebarItem[] = [
   },
   {
     name: 'Devices',
-    url: '/device',
+    url: '/dashboard/device',
   },
   {
     name: 'Categories',
-    url: '/category',
+    url: '/dashboard/category',
   },
 ];
